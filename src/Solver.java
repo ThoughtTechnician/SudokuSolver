@@ -12,6 +12,7 @@ public class Solver {
     private static ArrayList<Integer>[][] nPotentialValues;
 	private static ArrayList<Integer>[] rPotentialValues;
 	private static ArrayList<Integer>[] cPotentialValues;
+	private static int determinedCount;
 
 	public static void main(String[] args) {
         System.out.println("This is my Sudoku-Solving Program!!!");
@@ -20,6 +21,7 @@ public class Solver {
         nPotentialValues = new ArrayList[3][3];
 		rPotentialValues = new ArrayList[BOARD_DIMENSION];
 		cPotentialValues = new ArrayList[BOARD_DIMENSION];
+		determinedCount = 0;
 		for (int x = 0; x < 3; x++) {
 			for (int y = 0; y < 3; y++) {
 				nPotentialValues[x][y] = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9));
@@ -116,11 +118,12 @@ public class Solver {
 						if (board[x * 3 + m][y * 3 + n].potentialValues.size() == 1) {
 							board[x * 3 + m][y * 3 + n].value = board[x * 3 + m][y * 3 + n].potentialValues.get(0);
 							board[x * 3 + m][y * 3 + n].isDetermined = true;
+							determinedCount++;
 
 
-							nPotentialValues[x][y].remove(board[x * 3 + m][y * 3 + n].value);
-							rPotentialValues[x * 3 + m].remove(board[x * 3 + m][y * 3 + n].value);
-							cPotentialValues[y * 3 + n].remove(board[x * 3 + m][y * 3 + n].value);
+							nPotentialValues[x][y].remove((Integer) board[x * 3 + m][y * 3 + n].value);
+							rPotentialValues[x * 3 + m].remove((Integer) board[x * 3 + m][y * 3 + n].value);
+							cPotentialValues[y * 3 + n].remove((Integer) board[x * 3 + m][y * 3 + n].value);
 						}
 					}
 				}
@@ -150,15 +153,18 @@ public class Solver {
 					if (count == 1) {
 						board[i][j].value = val;
 						board[i][j].isDetermined = true;
+						determinedCount++;
 
-						nPotentialValues[i / 3][j / 3].remove(val);
-						rPotentialValues[i].remove(val);
-						cPotentialValues[j].remove(val);
+						nPotentialValues[i / 3][j / 3].remove((Integer) val);
+						rPotentialValues[i].remove((Integer) val);
+						cPotentialValues[j].remove((Integer) val);
 					}
 				}
 
 			}
 		}
+
+		printBoard();
 
     }
     private static boolean updateSpot(int spotI, int spotJ) {
@@ -166,7 +172,7 @@ public class Solver {
         // Loop through row
         for (int j = 0; j < BOARD_DIMENSION; j++) {
             if (board[spotI][j].isDetermined) {
-                if(board[spotI][spotJ].potentialValues.remove(board[spotI][j].value) != null) {
+                if(board[spotI][spotJ].potentialValues.remove((Integer) board[spotI][j].value)) {
                 	changed |= true;
 				}
             }
@@ -175,7 +181,7 @@ public class Solver {
         // Loop through column
         for (int i = 0; i < BOARD_DIMENSION; i++) {
             if (board[i][spotJ].isDetermined) {
-            	if (board[spotI][spotJ].potentialValues.remove(board[i][spotJ].value) != null) {
+            	if (board[spotI][spotJ].potentialValues.remove((Integer) board[i][spotJ].value)) {
             		changed |= true;
 				}
             }
@@ -187,7 +193,7 @@ public class Solver {
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 2; j++) {
                 if (board[startI + i][startJ + j].isDetermined) {
-                	if (board[spotI][spotJ].potentialValues.remove(board[startI + i][startJ + j].value) != null) {
+                	if (board[spotI][spotJ].potentialValues.remove((Integer) board[startI + i][startJ + j].value)) {
                 		changed |= true;
 					}
                 }
@@ -198,16 +204,17 @@ public class Solver {
         if (board[spotI][spotJ].potentialValues.size() == 1) {
         	board[spotI][spotJ].value = board[spotI][spotJ].potentialValues.get(0);
         	board[spotI][spotJ].isDetermined = true;
+        	determinedCount++;
         	changed |= true;
 
         	// Update nontant potential values
-			nPotentialValues[spotI / 3][spotJ / 3].remove(board[spotI][spotJ].value);
+			nPotentialValues[spotI / 3][spotJ / 3].remove((Integer)board[spotI][spotJ].value);
 
 			// Update row potential values
-			rPotentialValues[spotI].remove(board[spotI][spotJ].value);
+			rPotentialValues[spotI].remove((Integer)board[spotI][spotJ].value);
 
 			// Update column potential values
-			cPotentialValues[spotJ].remove(board[spotI][spotJ].value);
+			cPotentialValues[spotJ].remove((Integer)board[spotI][spotJ].value);
 
 		}
 		return changed;
@@ -240,11 +247,6 @@ public class Solver {
         boolean isDetermined;
         int value;
         ArrayList<Integer> potentialValues;
-        Spot (int value) {
-            this.isDetermined = true;
-            this.value = value;
-            this.potentialValues = null;
-        }
         Spot() {
             this.isDetermined = false;
             this.value = 0; //TBD
@@ -254,7 +256,7 @@ public class Solver {
         public void setValue(int value) {
             this.isDetermined = true;
             this.value = value;
-            this.potentialValues = null;
+            this.potentialValues = new ArrayList<>();
         }
 
         @Override
