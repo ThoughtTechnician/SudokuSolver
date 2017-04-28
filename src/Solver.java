@@ -107,8 +107,27 @@ public class Solver {
 
 
 				/**
-				 * Find any boxes in nontant with only one possible value
+				 * Find any boxes with only one potential value
 				 * and set them as determined
+				 */
+				// Iterate through spots in nontant
+				for (int m = 0; m < 3; m++) {
+					for (int n = 0; n < 3; n++) {
+						if (board[x * 3 + m][y * 3 + n].potentialValues.size() == 1) {
+							board[x * 3 + m][y * 3 + n].value = board[x * 3 + m][y * 3 + n].potentialValues.get(0);
+							board[x * 3 + m][y * 3 + n].isDetermined = true;
+
+
+							nPotentialValues[x][y].remove(board[x * 3 + m][y * 3 + n].value);
+							rPotentialValues[x * 3 + m].remove(board[x * 3 + m][y * 3 + n].value);
+							cPotentialValues[y * 3 + n].remove(board[x * 3 + m][y * 3 + n].value);
+						}
+					}
+				}
+
+				/**
+				 * Find any values only in one box
+				 * and set that box as determined
 				 */
 				// Iterate through potential values for given nontant
 				for (int val: nPotentialValues[x][y]) {
@@ -131,6 +150,10 @@ public class Solver {
 					if (count == 1) {
 						board[i][j].value = val;
 						board[i][j].isDetermined = true;
+
+						nPotentialValues[i / 3][j / 3].remove(val);
+						rPotentialValues[i].remove(val);
+						cPotentialValues[j].remove(val);
 					}
 				}
 
@@ -176,6 +199,16 @@ public class Solver {
         	board[spotI][spotJ].value = board[spotI][spotJ].potentialValues.get(0);
         	board[spotI][spotJ].isDetermined = true;
         	changed |= true;
+
+        	// Update nontant potential values
+			nPotentialValues[spotI / 3][spotJ / 3].remove(board[spotI][spotJ].value);
+
+			// Update row potential values
+			rPotentialValues[spotI].remove(board[spotI][spotJ].value);
+
+			// Update column potential values
+			cPotentialValues[spotJ].remove(board[spotI][spotJ].value);
+
 		}
 		return changed;
     }
