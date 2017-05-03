@@ -1,6 +1,5 @@
 package Logic;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -165,21 +164,23 @@ public class Solver {
 					 * and set them as determined
 					 */
 					// Iterate through spots in nontant
-					for (int m = 0; m < 3; m++) {
-						for (int n = 0; n < 3; n++) {
-							if (board[x * 3 + m][y * 3 + n].potentialValues.size() == 1) {
-								board[x * 3 + m][y * 3 + n].value = board[x * 3 + m][y * 3 + n].potentialValues.get(0);
-								board[x * 3 + m][y * 3 + n].isDetermined = true;
-								determinedCount++;
-								progressMade = true;
 
-
-								nPotentialValues[x][y].remove((Integer) board[x * 3 + m][y * 3 + n].value);
-								rPotentialValues[x * 3 + m].remove((Integer) board[x * 3 + m][y * 3 + n].value);
-								cPotentialValues[y * 3 + n].remove((Integer) board[x * 3 + m][y * 3 + n].value);
-							}
-						}
-					}
+					// APPEARS TO BE OBSELETE
+//					for (int m = 0; m < 3; m++) {
+//						for (int n = 0; n < 3; n++) {
+//							if (board[x * 3 + m][y * 3 + n].potentialValues.size() == 1) {
+//								board[x * 3 + m][y * 3 + n].value = board[x * 3 + m][y * 3 + n].potentialValues.get(0);
+//								board[x * 3 + m][y * 3 + n].isDetermined = true;
+//								determinedCount++;
+//								progressMade = true;
+//
+//
+//								nPotentialValues[x][y].remove((Integer) board[x * 3 + m][y * 3 + n].value);
+//								rPotentialValues[x * 3 + m].remove((Integer) board[x * 3 + m][y * 3 + n].value);
+//								cPotentialValues[y * 3 + n].remove((Integer) board[x * 3 + m][y * 3 + n].value);
+//							}
+//						}
+//					}
 
 					/**
 					 * Find any values only in one box
@@ -191,6 +192,7 @@ public class Solver {
 						int count = 0;
 						int i = 0;
 						int j = 0;
+
 						// Iterate through spots in nontant
 						for (int m = 0; m < 3; m++) {
 							for (int n = 0; n < 3; n++) {
