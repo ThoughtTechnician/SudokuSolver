@@ -3,7 +3,6 @@ package Logic;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 
 /**
  * Created by connor on 2/11/17.
@@ -19,22 +18,28 @@ public class Solver {
 
 	public static void main(String[] args) {
         System.out.println("This is my Sudoku-Solving Program!!!");
+
         // Initialize Board
         board = new Spot[BOARD_DIMENSION][BOARD_DIMENSION];
         nPotentialValues = new ArrayList[3][3];
 		rPotentialValues = new ArrayList[BOARD_DIMENSION];
 		cPotentialValues = new ArrayList[BOARD_DIMENSION];
 		determinedCount = 0;
+
+		// Populate each nontant with its potential values.
 		for (int x = 0; x < 3; x++) {
 			for (int y = 0; y < 3; y++) {
 				nPotentialValues[x][y] = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9));
 			}
 		}
+
+		// Populate each row and column with its potential values.
 		for (int i = 0; i < BOARD_DIMENSION; i++) {
 			rPotentialValues[i] = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9));
 			cPotentialValues[i] = new ArrayList<>(Arrays.asList(1,2,3,4,5,6,7,8,9));
 		}
 
+		// Initializing the board with new spots.
 		for (int i = 0 ; i < BOARD_DIMENSION; i++) {
             for (int j = 0; j < BOARD_DIMENSION; j++) {
                 board[i][j] = new Spot();
@@ -340,6 +345,7 @@ public class Solver {
     }
     private static boolean updateSpot(int spotI, int spotJ) {
     	boolean changed = false;
+
         // Loop through row
         for (int j = 0; j < BOARD_DIMENSION; j++) {
             if (board[spotI][j].isDetermined) {
