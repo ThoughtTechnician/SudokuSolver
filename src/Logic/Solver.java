@@ -146,11 +146,7 @@ public class Solver {
 			}
 
 			/**
-			 *
-			 *
 			 * 	Do logic on nontants
-			 *
-			 *
 			 */
 
 			// Iterate through nontants
@@ -161,47 +157,16 @@ public class Solver {
 					 * Find any values only in one box
 					 * and set that box as determined
 					 */
+
 					// Iterate through potential values for given nontant
 					for (int k = 0; k < nPotentialValues[x][y].size(); k++) {
-						int val = nPotentialValues[x][y].get(k);
-						int count = 0;
-						int i = 0;
-						int j = 0;
-
-						// Iterate through spots in nontant
-						for (int m = 0; m < 3; m++) {
-							for (int n = 0; n < 3; n++) {
-								if (board[x * 3 + m][y * 3 + n].potentialValues.contains(val)) {
-									count++;
-									i = x * 3 + m;
-									j = y * 3 + n;
-								}
-							}
-						}
-
-						// If there is only one spot with some potential value
-						// Set it as actually HAVING that value
-						if (count == 1) {
-							board[i][j].value = val;
-							board[i][j].isDetermined = true;
-							determinedCount++;
-							progressMade = true;
-
-							nPotentialValues[i / 3][j / 3].remove((Integer) val);
-							rPotentialValues[i].remove((Integer) val);
-							cPotentialValues[j].remove((Integer) val);
-						}
+                        progressMade |= nontantSingleValueCheck(x, y, k);
 					}
-
 				}
 			}
 
 			/**
-			 *
-			 *
 			 * 	Do logic on rows
-			 *
-			 *
 			 */
 			for (int i = 0; i < BOARD_DIMENSION; i++) {
 
@@ -211,36 +176,12 @@ public class Solver {
 				 */
 				// Iterate through potential values for given row
 				for (int k = 0; k < rPotentialValues[i].size(); k++) {
-					int val = rPotentialValues[i].get(k);
-					int rowCount = 0;
-					int J = 0;
-					// Iterate through spots in row
-					for (int j = 0; j < BOARD_DIMENSION; j++) {
-						if (board[i][j].potentialValues.contains(val)) {
-							rowCount++;
-						}
-					}
-
-					// If there is only one spot with some potential value
-					// Set it as actually HAVING that value
-					if (rowCount == 1) {
-						board[i][J].value = val;
-						board[i][J].isDetermined = true;
-						determinedCount++;
-						progressMade = true;
-						nPotentialValues[i / 3][J / 3].remove((Integer) val);
-						rPotentialValues[i].remove((Integer) val);
-						cPotentialValues[J].remove((Integer) val);
-					}
+                    progressMade |= rowSingleValueCheck(i, k);
 				}
 			}
 
 			/**
-			 *
-			 *
 			 * 	Do logic on columns
-			 *
-			 *
 			 */
 			for (int j = 0; j < BOARD_DIMENSION; j++) {
 
@@ -250,27 +191,7 @@ public class Solver {
 				 */
 				// Iterate through potential values for given column
 				for (int k = 0; k < cPotentialValues[j].size(); k++) {
-					int val = cPotentialValues[j].get(k);
-					int colCount = 0;
-					int I = 0;
-					// Iterate through spots in row
-					for (int i = 0; i < BOARD_DIMENSION; i++) {
-						if (board[i][j].potentialValues.contains(val)) {
-							colCount++;
-						}
-					}
-
-					// If there is only one spot with some potential value
-					// Set it as actually HAVING that value
-					if (colCount == 1) {
-						board[I][j].value = val;
-						board[I][j].isDetermined = true;
-						determinedCount++;
-						progressMade = true;
-						nPotentialValues[I / 3][j / 3].remove((Integer) val);
-						rPotentialValues[I].remove((Integer) val);
-						cPotentialValues[j].remove((Integer) val);
-					}
+                    progressMade |= columnSingleValueCheck(j, k);
 				}
 			}
 
@@ -282,6 +203,14 @@ public class Solver {
 		System.out.println();
 
     }
+
+    /**
+     * method to iterate through all spots and eliminate potential values based on the values
+     * that are present on the board
+     * @param spotI - row of the spot to check
+     * @param spotJ - column of the spot to check
+     * @return - boolean value detecting if progress was made in any respect
+     */
     private static boolean updateSpot(int spotI, int spotJ) {
     	boolean changed = false;
 
@@ -336,7 +265,116 @@ public class Solver {
 		return changed;
     }
 
+    /**
+     * method which detects if a particular potential value exists in only one box of a nontant
+     * @param row - row of nontant
+     * @param col - column on nontant
+     * @param value - value being checked within potential values list
+     * @return boolean detecting if progress was made
+     */
+    private static boolean nontantSingleValueCheck(int row, int col, int value) {
+        int val = nPotentialValues[row][col].get(value);
+        int count = 0;
+        int i = 0;
+        int j = 0;
+        boolean progress = false;
 
+        // Iterate through spots in nontant
+        for (int m = 0; m < 3; m++) {
+            for (int n = 0; n < 3; n++) {
+                if (board[row * 3 + m][col * 3 + n].potentialValues.contains(val)) {
+                    count++;
+                    i = row * 3 + m;
+                    j = col * 3 + n;
+                }
+            }
+        }
+
+        // If there is only one spot with some potential value
+        // Set it as actually HAVING that value
+        if (count == 1) {
+            board[i][j].value = val;
+            board[i][j].isDetermined = true;
+            determinedCount++;
+            progress = true;
+
+            nPotentialValues[i / 3][j / 3].remove((Integer) val);
+            rPotentialValues[i].remove((Integer) val);
+            cPotentialValues[j].remove((Integer) val);
+        }
+
+        return progress;
+    }
+
+    /**
+     * method which detects if a particular potential value exists in only one box of a row
+     * @param row - row to iterate through
+     * @param value - value being checked within the potential values list
+     * @return - boolean detecting if progress was made
+     */
+    private static boolean rowSingleValueCheck(int row, int value) {
+        int val = rPotentialValues[row].get(value);
+        int rowCount = 0;
+        int J = 0;
+        boolean progress = false;
+
+        // Iterate through spots in row
+        for (int j = 0; j < BOARD_DIMENSION; j++) {
+            if (board[row][j].potentialValues.contains(val)) {
+                rowCount++;
+            }
+        }
+
+        // If there is only one spot with some potential value
+        // Set it as actually HAVING that value
+        if (rowCount == 1) {
+            board[row][J].value = val;
+            board[row][J].isDetermined = true;
+            determinedCount++;
+            progress = true;
+            nPotentialValues[row / 3][J / 3].remove((Integer) val);
+            rPotentialValues[row].remove((Integer) val);
+            cPotentialValues[J].remove((Integer) val);
+        }
+        return progress;
+    }
+
+    /**
+     * method which detects if a particular potential value exists in only one box of a row
+     * @param col - column to iterate through
+     * @param value - value being checked within the potential values list
+     * @return - boolean detecting if progress was made
+     */
+    private static boolean columnSingleValueCheck(int col, int value) {
+        int val = cPotentialValues[col].get(value);
+        int colCount = 0;
+        int I = 0;
+        boolean progress = false;
+
+        // Iterate through spots in row
+        for (int i = 0; i < BOARD_DIMENSION; i++) {
+            if (board[i][col].potentialValues.contains(val)) {
+                colCount++;
+            }
+        }
+
+        // If there is only one spot with some potential value
+        // Set it as actually HAVING that value
+        if (colCount == 1) {
+            board[I][col].value = val;
+            board[I][col].isDetermined = true;
+            determinedCount++;
+            progress = true;
+            nPotentialValues[I / 3][col / 3].remove((Integer) val);
+            rPotentialValues[I].remove((Integer) val);
+            cPotentialValues[col].remove((Integer) val);
+        }
+        return progress;
+    }
+
+    /**
+     * method to print out the layout of the board
+     */
     private static void printBoard() {
         System.out.println("╔═════╦═════╦═════╗");
         for (int i = 0; i < BOARD_DIMENSION; i++) {
@@ -358,7 +396,13 @@ public class Solver {
         System.out.println("╚═════╩═════╩═════╝");
     }
 
-
+    /**
+     * Class which contains the spot
+     * Spots contain:
+     * isDetermined - boolean which identifies if a spot has a value
+     * value - the actual value of the spot, undefined if not determined
+     * potentialValues - list of possible values for this spot
+     */
     private static class Spot {
         boolean isDetermined;
         int value;
