@@ -4,7 +4,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 /**
- * Created by connor on 2/11/17.
+ * Sudoku Solver Backend
+ * By Maxwell Broom and Connor Reeder
  */
 public class Solver {
 
