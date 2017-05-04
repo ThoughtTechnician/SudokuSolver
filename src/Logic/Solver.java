@@ -44,83 +44,83 @@ public class Solver {
                 board[i][j] = new Spot();
             }
         }
-//        setBoardValue(0,2,7);
-//        setBoardValue(0,7,1);
-//        setBoardValue(0,8,5);
+        setBoardValue(0,2,7);
+        setBoardValue(0,7,1);
+        setBoardValue(0,8,5);
+
+        setBoardValue(1,3,3);
+        setBoardValue(1,4,9);
+        setBoardValue(1,5,7);
+
+        setBoardValue(2,1,6);
+        setBoardValue(2,2,2);
+        setBoardValue(2,4,1);
+        setBoardValue(2,6,4);
+        setBoardValue(2,8,9);
+
+        setBoardValue(3,1,2);
+        setBoardValue(3,5,1);
+        setBoardValue(3,6,5);
+        setBoardValue(3,7,4);
+        setBoardValue(3,8,3);
+
+        setBoardValue(4,0,7);
+        setBoardValue(4,3,4);
+        setBoardValue(4,5,9);
+        setBoardValue(4,8,1);
+
+        setBoardValue(5,0,4);
+        setBoardValue(5,1,8);
+        setBoardValue(5,2,1);
+        setBoardValue(5,3,2);
+        setBoardValue(5,7,6);
+
+        setBoardValue(6,0,9);
+        setBoardValue(6,2,6);
+        setBoardValue(6,4,2);
+        setBoardValue(6,6,7);
+        setBoardValue(6,7,3);
+
+        setBoardValue(7,3,9);
+        setBoardValue(7,4,8);
+        setBoardValue(7,5,4);
+
+        setBoardValue(8,0,1);
+        setBoardValue(8,1,5);
+        setBoardValue(8,6,2);
+
+//		setBoardValue(0, 1, 6);
+//		setBoardValue(0, 5, 8);
+//		setBoardValue(0, 6, 4);
 //
-//        setBoardValue(1,3,3);
-//        setBoardValue(1,4,9);
-//        setBoardValue(1,5,7);
+//		setBoardValue(1, 1, 3);
+//		setBoardValue(1, 4, 7);
 //
-//        setBoardValue(2,1,6);
-//        setBoardValue(2,2,2);
-//        setBoardValue(2,4,1);
-//        setBoardValue(2,6,4);
-//        setBoardValue(2,8,9);
+//		setBoardValue(2, 5, 3);
+//		setBoardValue(2,7,8);
+//		setBoardValue(2,8,5);
 //
-//        setBoardValue(3,1,2);
-//        setBoardValue(3,5,1);
-//        setBoardValue(3,6,5);
-//        setBoardValue(3,7,4);
-//        setBoardValue(3,8,3);
+//		setBoardValue(3,5,4);
+//		setBoardValue(3, 6,2);
+//		setBoardValue(3, 8,1);
 //
-//        setBoardValue(4,0,7);
-//        setBoardValue(4,3,4);
-//        setBoardValue(4,5,9);
-//        setBoardValue(4,8,1);
+//		setBoardValue(4, 0, 1);
+//		setBoardValue(4,8,3);
 //
-//        setBoardValue(5,0,4);
-//        setBoardValue(5,1,8);
-//        setBoardValue(5,2,1);
-//        setBoardValue(5,3,2);
-//        setBoardValue(5,7,6);
+//		setBoardValue(5,0,7);
+//		setBoardValue(5, 2, 2);
+//		setBoardValue(5, 3, 9);
 //
-//        setBoardValue(6,0,9);
-//        setBoardValue(6,2,6);
-//        setBoardValue(6,4,2);
-//        setBoardValue(6,6,7);
-//        setBoardValue(6,7,3);
+//		setBoardValue(6, 0, 2);
+//		setBoardValue(6, 1, 5);
+//		setBoardValue(6, 3, 1);
 //
-//        setBoardValue(7,3,9);
-//        setBoardValue(7,4,8);
-//        setBoardValue(7,5,4);
+//		setBoardValue(7, 4, 8);
+//		setBoardValue(7, 7, 1);
 //
-//        setBoardValue(8,0,1);
-//        setBoardValue(8,1,5);
-//        setBoardValue(8,6,2);
-
-		setBoardValue(0, 1, 6);
-		setBoardValue(0, 5, 8);
-		setBoardValue(0, 6, 4);
-
-		setBoardValue(1, 1, 3);
-		setBoardValue(1, 4, 7);
-
-		setBoardValue(2, 5, 3);
-		setBoardValue(2,7,8);
-		setBoardValue(2,8,5);
-
-		setBoardValue(3,5,4);
-		setBoardValue(3, 6,2);
-		setBoardValue(3, 8,1);
-
-		setBoardValue(4, 0, 1);
-		setBoardValue(4,8,3);
-
-		setBoardValue(5,0,7);
-		setBoardValue(5, 2, 2);
-		setBoardValue(5, 3, 9);
-
-		setBoardValue(6, 0, 2);
-		setBoardValue(6, 1, 5);
-		setBoardValue(6, 3, 1);
-
-		setBoardValue(7, 4, 8);
-		setBoardValue(7, 7, 1);
-
-		setBoardValue(8, 2, 8);
-		setBoardValue(8,3, 7);
-		setBoardValue(8, 7, 5);
+//		setBoardValue(8, 2, 8);
+//		setBoardValue(8,3, 7);
+//		setBoardValue(8, 7, 5);
 
 
         printBoard();
@@ -131,7 +131,6 @@ public class Solver {
 		while (progressMade && determinedCount < (BOARD_DIMENSION * BOARD_DIMENSION)) {
 
 			progressMade = false;
-
 
 			boolean updatedPVs = true;
 			while (updatedPVs) {
@@ -157,30 +156,6 @@ public class Solver {
 			// Iterate through nontants
 			for (int x = 0; x < 3; x++) {
 				for (int y = 0; y < 3; y++) {
-
-
-					/**
-					 * Find any boxes with only one potential value
-					 * and set them as determined
-					 */
-					// Iterate through spots in nontant
-
-					// APPEARS TO BE OBSELETE
-//					for (int m = 0; m < 3; m++) {
-//						for (int n = 0; n < 3; n++) {
-//							if (board[x * 3 + m][y * 3 + n].potentialValues.size() == 1) {
-//								board[x * 3 + m][y * 3 + n].value = board[x * 3 + m][y * 3 + n].potentialValues.get(0);
-//								board[x * 3 + m][y * 3 + n].isDetermined = true;
-//								determinedCount++;
-//								progressMade = true;
-//
-//
-//								nPotentialValues[x][y].remove((Integer) board[x * 3 + m][y * 3 + n].value);
-//								rPotentialValues[x * 3 + m].remove((Integer) board[x * 3 + m][y * 3 + n].value);
-//								cPotentialValues[y * 3 + n].remove((Integer) board[x * 3 + m][y * 3 + n].value);
-//							}
-//						}
-//					}
 
 					/**
 					 * Find any values only in one box
@@ -229,25 +204,6 @@ public class Solver {
 			 *
 			 */
 			for (int i = 0; i < BOARD_DIMENSION; i++) {
-				/**
-				 * Find any boxes with only one potential value
-				 * and set them as determined
-				 */
-				// Iterate through spots in row
-				for (int j = 0; j < BOARD_DIMENSION; j++) {
-					if (board[i][j].potentialValues.size() == 1) {
-						board[i][j].value = board[i][j].potentialValues.get(0);
-						board[i][j].isDetermined = true;
-						determinedCount++;
-						progressMade = true;
-
-
-						nPotentialValues[i / 3][j / 3].remove((Integer) board[i][j].value);
-						rPotentialValues[i].remove((Integer) board[i][j].value);
-						cPotentialValues[j].remove((Integer) board[i][j].value);
-					}
-				}
-
 
 				/**
 				 * Find any values only in one box
@@ -287,31 +243,12 @@ public class Solver {
 			 *
 			 */
 			for (int j = 0; j < BOARD_DIMENSION; j++) {
-				/**
-				 * Find any boxes with only one potential value
-				 * and set them as determined
-				 */
-				// Iterate through spots in column
-				for (int i = 0; i < BOARD_DIMENSION; i++) {
-					if (board[i][j].potentialValues.size() == 1) {
-						board[i][j].value = board[i][j].potentialValues.get(0);
-						board[i][j].isDetermined = true;
-						determinedCount++;
-						progressMade = true;
-
-
-						nPotentialValues[i / 3][j / 3].remove((Integer) board[i][j].value);
-						rPotentialValues[i].remove((Integer) board[i][j].value);
-						cPotentialValues[j].remove((Integer) board[i][j].value);
-					}
-				}
-
 
 				/**
 				 * Find any values only in one box
 				 * and set that box as determined
 				 */
-				// Iterate through potential values for given row
+				// Iterate through potential values for given column
 				for (int k = 0; k < cPotentialValues[j].size(); k++) {
 					int val = cPotentialValues[j].get(k);
 					int colCount = 0;
