@@ -152,6 +152,8 @@ public class Solver {
 
 					// Iterate through potential values for given nontant
 					for (int k = 0; k < nPotentialValues[x][y].size(); k++) {
+
+                        // Checks if a given value has only one box with it as a potential value
 						progressMade |= nontantSingleValueCheck(x, y, k);
 					}
 				}
@@ -164,6 +166,8 @@ public class Solver {
 
 				// Iterate through potential values for given row
 				for (int k = 0; k < rPotentialValues[i].size(); k++) {
+
+                    // Checks if a given value has only one box with it as a potential value
 					progressMade |= rowSingleValueCheck(i, k);
 				}
 			}
@@ -175,6 +179,8 @@ public class Solver {
 
 				// Iterate through potential values for given column
 				for (int k = 0; k < cPotentialValues[j].size(); k++) {
+
+                    // Checks if a given value has only one box with it as a potential value
 					progressMade |= columnSingleValueCheck(j, k);
 				}
 			}
