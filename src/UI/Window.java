@@ -1,12 +1,14 @@
-package UI;/**
- * Created by connor on 5/2/17.
+package UI;
+
+/**
+ * Sudoku Solver Window
+ * By Maxwell Broom and Connor Reeder
  */
 
 import Logic.Solver;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.effect.Light;
 import javafx.stage.Stage;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
@@ -77,7 +79,7 @@ public class Window extends Application {
 		 */
 		BorderPane.setMargin(nontantGrid, new Insets(10,10,10,10));
 		root.setCenter(nontantGrid);
-		nontantGrid.widthProperty().addListener((observable, oldValue, newValue) -> doSomething(nontantGrid, oldValue, newValue));
+		nontantGrid.widthProperty().addListener((observable, oldValue, newValue) -> maintainRatio(nontantGrid, oldValue, newValue));
 		nontantGrid.setMinHeight(250);
 		nontantGrid.setMinWidth(250);
 
@@ -119,11 +121,9 @@ public class Window extends Application {
 		primaryStage.show();
 	}
 
-	private void doSomething(Pane node, Number oldValue, Number newValue) {
-		System.out.println("oldValue: " + oldValue + ", newValue: " + newValue);
-//    	node.setMaxHeight(newValue.longValue() /2);
+	private void maintainRatio(Pane node, Number oldValue, Number newValue) {
+//		System.out.println("oldValue: " + oldValue + ", newValue: " + newValue);
 		node.setMinHeight(newValue.longValue());
 		node.setMaxHeight(newValue.longValue() + 1);
-
 	}
 }
