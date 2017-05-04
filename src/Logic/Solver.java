@@ -150,11 +150,6 @@ public class Solver {
 			for (int x = 0; x < 3; x++) {
 				for (int y = 0; y < 3; y++) {
 
-					/**
-					 * Find any values only in one box
-					 * and set that box as determined
-					 */
-
 					// Iterate through potential values for given nontant
 					for (int k = 0; k < nPotentialValues[x][y].size(); k++) {
 						progressMade |= nontantSingleValueCheck(x, y, k);
@@ -167,10 +162,6 @@ public class Solver {
 			 */
 			for (int i = 0; i < BOARD_DIMENSION; i++) {
 
-				/**
-				 * Find any values only in one box
-				 * and set that box as determined
-				 */
 				// Iterate through potential values for given row
 				for (int k = 0; k < rPotentialValues[i].size(); k++) {
 					progressMade |= rowSingleValueCheck(i, k);
@@ -182,10 +173,6 @@ public class Solver {
 			 */
 			for (int j = 0; j < BOARD_DIMENSION; j++) {
 
-				/**
-				 * Find any values only in one box
-				 * and set that box as determined
-				 */
 				// Iterate through potential values for given column
 				for (int k = 0; k < cPotentialValues[j].size(); k++) {
 					progressMade |= columnSingleValueCheck(j, k);
