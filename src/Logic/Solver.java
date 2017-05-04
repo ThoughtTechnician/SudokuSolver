@@ -9,18 +9,16 @@ import java.util.Arrays;
 public class Solver {
 
     private static final int BOARD_DIMENSION = 9;
-    private static Spot[][] board;
-    private static ArrayList<Integer>[][] nPotentialValues;
-	private static ArrayList<Integer>[] rPotentialValues;
-	private static ArrayList<Integer>[] cPotentialValues;
-	private static int determinedCount;
+    private Spot[][] board;
+    private ArrayList<Integer>[][] nPotentialValues;
+	private ArrayList<Integer>[] rPotentialValues;
+	private ArrayList<Integer>[] cPotentialValues;
+	private int determinedCount;
 
-	public static void main(String[] args) {
-        System.out.println("This is my Sudoku-Solving Program!!!");
-
-        // Initialize Board
-        board = new Spot[BOARD_DIMENSION][BOARD_DIMENSION];
-        nPotentialValues = new ArrayList[3][3];
+	public Solver() {
+		// Initialize Board
+		board = new Spot[BOARD_DIMENSION][BOARD_DIMENSION];
+		nPotentialValues = new ArrayList[3][3];
 		rPotentialValues = new ArrayList[BOARD_DIMENSION];
 		cPotentialValues = new ArrayList[BOARD_DIMENSION];
 		determinedCount = 0;
@@ -40,56 +38,57 @@ public class Solver {
 
 		// Initializing the board with new spots.
 		for (int i = 0 ; i < BOARD_DIMENSION; i++) {
-            for (int j = 0; j < BOARD_DIMENSION; j++) {
-                board[i][j] = new Spot();
-            }
-        }
-        setBoardValue(0,2,7);
-        setBoardValue(0,7,1);
-        setBoardValue(0,8,5);
+			for (int j = 0; j < BOARD_DIMENSION; j++) {
+				board[i][j] = new Spot();
+			}
+		}
+		setBoardValue(0,2,7);
+		setBoardValue(0,7,1);
+		setBoardValue(0,8,5);
 
-        setBoardValue(1,3,3);
-        setBoardValue(1,4,9);
-        setBoardValue(1,5,7);
+		setBoardValue(1,3,3);
+		setBoardValue(1,4,9);
+		setBoardValue(1,5,7);
 
-        setBoardValue(2,1,6);
-        setBoardValue(2,2,2);
-        setBoardValue(2,4,1);
-        setBoardValue(2,6,4);
-        setBoardValue(2,8,9);
+		setBoardValue(2,1,6);
+		setBoardValue(2,2,2);
+		setBoardValue(2,4,1);
+		setBoardValue(2,6,4);
+		setBoardValue(2,8,9);
 
-        setBoardValue(3,1,2);
-        setBoardValue(3,5,1);
-        setBoardValue(3,6,5);
-        setBoardValue(3,7,4);
-        setBoardValue(3,8,3);
+		setBoardValue(3,1,2);
+		setBoardValue(3,5,1);
+		setBoardValue(3,6,5);
+		setBoardValue(3,7,4);
+		setBoardValue(3,8,3);
 
-        setBoardValue(4,0,7);
-        setBoardValue(4,3,4);
-        setBoardValue(4,5,9);
-        setBoardValue(4,8,1);
+		setBoardValue(4,0,7);
+		setBoardValue(4,3,4);
+		setBoardValue(4,5,9);
+		setBoardValue(4,8,1);
 
-        setBoardValue(5,0,4);
-        setBoardValue(5,1,8);
-        setBoardValue(5,2,1);
-        setBoardValue(5,3,2);
-        setBoardValue(5,7,6);
+		setBoardValue(5,0,4);
+		setBoardValue(5,1,8);
+		setBoardValue(5,2,1);
+		setBoardValue(5,3,2);
+		setBoardValue(5,7,6);
 
-        setBoardValue(6,0,9);
-        setBoardValue(6,2,6);
-        setBoardValue(6,4,2);
-        setBoardValue(6,6,7);
-        setBoardValue(6,7,3);
+		setBoardValue(6,0,9);
+		setBoardValue(6,2,6);
+		setBoardValue(6,4,2);
+		setBoardValue(6,6,7);
+		setBoardValue(6,7,3);
 
-        setBoardValue(7,3,9);
-        setBoardValue(7,4,8);
-        setBoardValue(7,5,4);
+		setBoardValue(7,3,9);
+		setBoardValue(7,4,8);
+		setBoardValue(7,5,4);
 
-        setBoardValue(8,0,1);
-        setBoardValue(8,1,5);
-        setBoardValue(8,6,2);
+		setBoardValue(8,0,1);
+		setBoardValue(8,1,5);
+		setBoardValue(8,6,2);
 
-//		setBoardValue(0, 1, 6);
+
+		//		setBoardValue(0, 1, 6);
 //		setBoardValue(0, 5, 8);
 //		setBoardValue(0, 6, 4);
 //
@@ -121,10 +120,8 @@ public class Solver {
 //		setBoardValue(8, 2, 8);
 //		setBoardValue(8,3, 7);
 //		setBoardValue(8, 7, 5);
-
-
-        printBoard();
-
+	}
+	public void solve() {
 
 		boolean progressMade = true;
 
@@ -160,7 +157,7 @@ public class Solver {
 
 					// Iterate through potential values for given nontant
 					for (int k = 0; k < nPotentialValues[x][y].size(); k++) {
-                        progressMade |= nontantSingleValueCheck(x, y, k);
+						progressMade |= nontantSingleValueCheck(x, y, k);
 					}
 				}
 			}
@@ -176,7 +173,7 @@ public class Solver {
 				 */
 				// Iterate through potential values for given row
 				for (int k = 0; k < rPotentialValues[i].size(); k++) {
-                    progressMade |= rowSingleValueCheck(i, k);
+					progressMade |= rowSingleValueCheck(i, k);
 				}
 			}
 
@@ -191,18 +188,12 @@ public class Solver {
 				 */
 				// Iterate through potential values for given column
 				for (int k = 0; k < cPotentialValues[j].size(); k++) {
-                    progressMade |= columnSingleValueCheck(j, k);
+					progressMade |= columnSingleValueCheck(j, k);
 				}
 			}
 
 		}
-
-
-
-		printBoard();
-		System.out.println();
-
-    }
+	}
 
     /**
      * method to iterate through all spots and eliminate potential values based on the values
@@ -211,7 +202,7 @@ public class Solver {
      * @param spotJ - column of the spot to check
      * @return - boolean value detecting if progress was made in any respect
      */
-    private static boolean updateSpot(int spotI, int spotJ) {
+    private boolean updateSpot(int spotI, int spotJ) {
     	boolean changed = false;
 
         // Loop through row
@@ -272,7 +263,7 @@ public class Solver {
      * @param value - value being checked within potential values list
      * @return boolean detecting if progress was made
      */
-    private static boolean nontantSingleValueCheck(int row, int col, int value) {
+    private boolean nontantSingleValueCheck(int row, int col, int value) {
         int val = nPotentialValues[row][col].get(value);
         int count = 0;
         int i = 0;
@@ -312,7 +303,7 @@ public class Solver {
      * @param value - value being checked within the potential values list
      * @return - boolean detecting if progress was made
      */
-    private static boolean rowSingleValueCheck(int row, int value) {
+    private boolean rowSingleValueCheck(int row, int value) {
         int val = rPotentialValues[row].get(value);
         int rowCount = 0;
         int J = 0;
@@ -345,7 +336,7 @@ public class Solver {
      * @param value - value being checked within the potential values list
      * @return - boolean detecting if progress was made
      */
-    private static boolean columnSingleValueCheck(int col, int value) {
+    private boolean columnSingleValueCheck(int col, int value) {
         int val = cPotentialValues[col].get(value);
         int colCount = 0;
         int I = 0;
@@ -375,7 +366,7 @@ public class Solver {
     /**
      * method to print out the layout of the board
      */
-    private static void printBoard() {
+    private void printBoard() {
         System.out.println("╔═════╦═════╦═════╗");
         for (int i = 0; i < BOARD_DIMENSION; i++) {
             if (i == 3 || i == 6)
@@ -403,9 +394,9 @@ public class Solver {
      * value - the actual value of the spot, undefined if not determined
      * potentialValues - list of possible values for this spot
      */
-    private static class Spot {
+    public class Spot {
         boolean isDetermined;
-        int value;
+        public int value;
         ArrayList<Integer> potentialValues;
         Spot() {
             this.isDetermined = false;
@@ -428,8 +419,12 @@ public class Solver {
         }
     }
 
-    private static void setBoardValue(int iPos, int jPos, int value) {
+    private void setBoardValue(int iPos, int jPos, int value) {
         board[iPos][jPos].setValue(value);
     }
+
+    public Spot[][] getBoard() {
+    	return board;
+	}
 
 }

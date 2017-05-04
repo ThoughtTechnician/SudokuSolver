@@ -2,7 +2,11 @@ package UI;/**
  * Created by connor on 5/2/17.
  */
 
+import Logic.Solver;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
+import javafx.scene.effect.Light;
 import javafx.stage.Stage;
 import javafx.geometry.*;
 import javafx.geometry.Insets;
@@ -15,7 +19,9 @@ import javafx.scene.layout.*;
 public class Window extends Application {
 
 	private static final int BOARD_DIMENSION = 9;
+	static Solver solver;
 	public static void main(String[] args) {
+		solver = new Solver();
 		launch(args);
 	}
 
@@ -85,9 +91,28 @@ public class Window extends Application {
 		bottomPane.getChildren().add(solveButton);
 		HBox.setMargin(solveButton, new Insets(10,10,10,10));
 		root.setBottom(bottomPane);
+		solveButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				solver.solve();
+				Solver.Spot[][] newBoard = solver.getBoard();
+				for (int i = 0; i < BOARD_DIMENSION; i++) {
+					for (int j = 0; j < BOARD_DIMENSION; j++) {
+						boxes[i][j].setText(Integer.toString(newBoard[i][j].value));
+					}
+				}
+			}
+		});
+		Solver.Spot[][] board = solver.getBoard();
+		for (int i = 0; i < BOARD_DIMENSION; i++) {
+			for (int j = 0; j < BOARD_DIMENSION; j++) {
+				if (board[i][j].value > 0)
+					boxes[i][j].setText(Integer.toString(board[i][j].value));
+			}
+		}
 
 		primaryStage.setTitle("Sudoku Solver");
-		Scene scene = new Scene(root, 500, 500);
+		Scene scene = new Scene(root, 500, 600);
 		primaryStage.setScene(scene);
 		primaryStage.setMinWidth(300);
 		primaryStage.setMinHeight(350);
