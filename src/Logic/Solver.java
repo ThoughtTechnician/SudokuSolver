@@ -305,7 +305,7 @@ public class Solver {
         boolean progress = false;
 
         // iterate through all possible first values
-        for (int i = 0; i < nPotentialValues[row][col].size(); i++) {
+        for (int i = 0; i < nPotentialValues[row][col].size() - 1; i++) {
             firstVal = nPotentialValues[row][col].get(i);
 
             // iterate through all possible second values, skipping those already checked
