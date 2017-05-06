@@ -190,6 +190,9 @@ public class Solver {
                     // Checks if a given value has only one box with it as a potential value
 					progressMade |= columnSingleValueCheck(j, k);
 				}
+
+                // Check for pairs and triples
+                progressMade |= columnDoubleValueCheck(j);
 			}
 		}
 	}
@@ -481,6 +484,65 @@ public class Solver {
             nPotentialValues[I / 3][col / 3].remove((Integer) val);
             rPotentialValues[I].remove((Integer) val);
             cPotentialValues[col].remove((Integer) val);
+        }
+        return progress;
+    }
+
+    /**
+     * method which detects for pairs within a column and removes them from other spots
+     * @param col - column to check for pairs
+     * @return boolean if progress was made
+     */
+    private boolean columnDoubleValueCheck(int col) {
+        int firstVal;
+        int secondVal;
+        boolean progress = false;
+
+        // iterate through all possible first values
+        for (int i = 0; i < cPotentialValues[col].size() - 1; i++) {
+            firstVal = cPotentialValues[col].get(i);
+
+            // iterate through all possible second values, skipping those already checked
+            for (int j = i + 1; j < cPotentialValues[col].size(); j++) {
+                secondVal = cPotentialValues[col].get(j);
+                int containsValuesCount = 0;
+                int pairCount = 0;
+
+                // Check potential values of each column
+                for (int k = 0; k < BOARD_DIMENSION; k++) {
+
+                    // if values exist in potential values list, increment contains count
+                    if (board[k][col].potentialValues.contains(firstVal)
+                            && board[k][col].potentialValues.contains(secondVal)) {
+                        containsValuesCount++;
+
+                        // if list contains values and size = 2, increment pair count
+                        if (board[k][col].potentialValues.size() == 2) {
+                            pairCount++;
+                        }
+                    }
+                }
+
+                // if there is a pair with only 2 values, remove values from the other spots
+                if (pairCount == 2 && containsValuesCount > 2) {
+
+                    // iterate through all spots in column
+                    for (int m = 0; m < BOARD_DIMENSION; m++) {
+
+                        // if values exist and size is bigger than 2, spot is not part of the
+                        // pair, so remove firstVal and secondVal as potentials
+                        if (board[m][col].potentialValues.contains(firstVal)
+                                && board[m][col].potentialValues.contains(secondVal)
+                                && board[m][col].potentialValues.size() > 2) {
+
+                            board[m][col].potentialValues.remove(firstVal);
+                            board[m][col].potentialValues.remove(secondVal);
+
+                            progress = true;
+                        }
+                    }
+                }
+            }
         }
         return progress;
     }
