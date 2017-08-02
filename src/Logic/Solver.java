@@ -43,84 +43,84 @@ public class Solver {
 				board[i][j] = new Spot();
 			}
 		}
-//		setBoardValue(0,2,7);
-//		setBoardValue(0,7,1);
-//		setBoardValue(0,8,5);
+		setBoardValue(0,2,7);
+		setBoardValue(0,7,1);
+		setBoardValue(0,8,5);
+
+		setBoardValue(1,3,3);
+		setBoardValue(1,4,9);
+		setBoardValue(1,5,7);
+
+		setBoardValue(2,1,6);
+		setBoardValue(2,2,2);
+		setBoardValue(2,4,1);
+		setBoardValue(2,6,4);
+		setBoardValue(2,8,9);
+
+		setBoardValue(3,1,2);
+		setBoardValue(3,5,1);
+		setBoardValue(3,6,5);
+		setBoardValue(3,7,4);
+		setBoardValue(3,8,3);
+
+		setBoardValue(4,0,7);
+		setBoardValue(4,3,4);
+		setBoardValue(4,5,9);
+		setBoardValue(4,8,1);
+
+		setBoardValue(5,0,4);
+		setBoardValue(5,1,8);
+		setBoardValue(5,2,1);
+		setBoardValue(5,3,2);
+		setBoardValue(5,7,6);
+
+		setBoardValue(6,0,9);
+		setBoardValue(6,2,6);
+		setBoardValue(6,4,2);
+		setBoardValue(6,6,7);
+		setBoardValue(6,7,3);
+
+		setBoardValue(7,3,9);
+		setBoardValue(7,4,8);
+		setBoardValue(7,5,4);
+
+		setBoardValue(8,0,1);
+		setBoardValue(8,1,5);
+		setBoardValue(8,6,2);
+
+
+//        setBoardValue(0, 1, 6);
+//		setBoardValue(0, 5, 8);
+//		setBoardValue(0, 6, 4);
 //
-//		setBoardValue(1,3,3);
-//		setBoardValue(1,4,9);
-//		setBoardValue(1,5,7);
+//		setBoardValue(1, 1, 3);
+//		setBoardValue(1, 4, 7);
 //
-//		setBoardValue(2,1,6);
-//		setBoardValue(2,2,2);
-//		setBoardValue(2,4,1);
-//		setBoardValue(2,6,4);
-//		setBoardValue(2,8,9);
+//		setBoardValue(2, 5, 3);
+//		setBoardValue(2,7,8);
+//		setBoardValue(2,8,5);
 //
-//		setBoardValue(3,1,2);
-//		setBoardValue(3,5,1);
-//		setBoardValue(3,6,5);
-//		setBoardValue(3,7,4);
-//		setBoardValue(3,8,3);
+//		setBoardValue(3,5,4);
+//		setBoardValue(3, 6,2);
+//		setBoardValue(3, 8,1);
 //
-//		setBoardValue(4,0,7);
-//		setBoardValue(4,3,4);
-//		setBoardValue(4,5,9);
-//		setBoardValue(4,8,1);
+//		setBoardValue(4, 0, 1);
+//		setBoardValue(4,8,3);
 //
-//		setBoardValue(5,0,4);
-//		setBoardValue(5,1,8);
-//		setBoardValue(5,2,1);
-//		setBoardValue(5,3,2);
-//		setBoardValue(5,7,6);
+//		setBoardValue(5,0,7);
+//		setBoardValue(5, 2, 2);
+//		setBoardValue(5, 3, 9);
 //
-//		setBoardValue(6,0,9);
-//		setBoardValue(6,2,6);
-//		setBoardValue(6,4,2);
-//		setBoardValue(6,6,7);
-//		setBoardValue(6,7,3);
+//		setBoardValue(6, 0, 2);
+//		setBoardValue(6, 1, 5);
+//		setBoardValue(6, 3, 1);
 //
-//		setBoardValue(7,3,9);
-//		setBoardValue(7,4,8);
-//		setBoardValue(7,5,4);
+//		setBoardValue(7, 4, 8);
+//		setBoardValue(7, 7, 1);
 //
-//		setBoardValue(8,0,1);
-//		setBoardValue(8,1,5);
-//		setBoardValue(8,6,2);
-
-
-        setBoardValue(0, 1, 6);
-		setBoardValue(0, 5, 8);
-		setBoardValue(0, 6, 4);
-
-		setBoardValue(1, 1, 3);
-		setBoardValue(1, 4, 7);
-
-		setBoardValue(2, 5, 3);
-		setBoardValue(2,7,8);
-		setBoardValue(2,8,5);
-
-		setBoardValue(3,5,4);
-		setBoardValue(3, 6,2);
-		setBoardValue(3, 8,1);
-
-		setBoardValue(4, 0, 1);
-		setBoardValue(4,8,3);
-
-		setBoardValue(5,0,7);
-		setBoardValue(5, 2, 2);
-		setBoardValue(5, 3, 9);
-
-		setBoardValue(6, 0, 2);
-		setBoardValue(6, 1, 5);
-		setBoardValue(6, 3, 1);
-
-		setBoardValue(7, 4, 8);
-		setBoardValue(7, 7, 1);
-
-		setBoardValue(8, 2, 8);
-		setBoardValue(8, 3, 7);
-		setBoardValue(8, 7, 5);
+//		setBoardValue(8, 2, 8);
+//		setBoardValue(8, 3, 7);
+//		setBoardValue(8, 7, 5);
 	}
 	public void solve() {
 
